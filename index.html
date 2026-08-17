@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feefy Ripz - Pokémon TCG Companion</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Import Google Fonts: Plus Jakarta Sans & Modern Thai Font (Prompt) */
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,800;1,900&family=Prompt:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', 'Prompt', sans-serif;
+            background-color: #F8FAFC;
+            color: #0F172A;
+            line-height: 1.5;
+        }
+        .brand-red { color: #E60023; }
+        .card-ripit {
+            background: #FFFFFF;
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+            border: 1px solid #F1F5F9;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+
+    <!-- Header / Navbar -->
+    <header class="bg-white border-b border-slate-100 sticky top-0 z-30 shadow-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Branding Header: Circle FR Logo + Feefy Ripz -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="location.reload()">
+                    <div class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-white font-extrabold text-sm shadow-md border border-slate-800">
+                        FR
+                    </div>
+                    <span class="text-3xl font-black italic tracking-tighter brand-red">Feefy Ripz</span>
+                </div>
+
+                <!-- Global Search -->
+                <div class="relative hidden sm:block w-72">
+                    <input type="text" id="globalSearch" placeholder="Search cards, sets, products..." 
+                        class="w-full text-xs font-medium pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-full focus:outline-none focus:border-red-500 transition-all">
+                    <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-3"></i>
+                </div>
+            </div>
+
+            <!-- UI Switcher Pills -->
+            <div class="flex border-t border-slate-100 py-3 space-x-2 text-xs font-bold">
+                <button id="btnOptionA" onclick="switchUIMode('optionA')" class="px-4 py-2 rounded-full transition-all bg-slate-900 text-white shadow-xs">
+                    Option A: Tab View
+                </button>
+                <button id="btnOptionB" onclick="switchUIMode('optionB')" class="px-4 py-2 rounded-full transition-all bg-slate-100 text-slate-600 hover:bg-slate-200">
+                    Option B: Feefy Card Grid
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+        <!-- Mobile Search Bar -->
+        <div class="sm:hidden relative w-full">
+            <input type="text" id="globalSearchMobile" placeholder="Search cards, sets, products..." 
+                class="w-full text-xs font-medium pl-9 pr-4 py-2.5 bg-white border border-slate-200 rounded-full focus:outline-none focus:border-red-500">
+            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-3"></i>
+        </div>
+
+        <!-- OPTION A: Tab Navigation -->
+        <div id="layoutOptionA" class="space-y-6">
+            <div class="flex space-x-2 border-b border-slate-200 text-sm font-bold">
+                <button onclick="switchTab('products')" id="tab-products" class="tab-btn pb-3 px-4 border-b-2 border-red-600 text-red-600">
+                    Product Lineup
+                </button>
+                <button onclick="switchTab('sets')" id="tab-sets" class="tab-btn pb-3 px-4 border-b-2 border-transparent text-slate-400 hover:text-slate-700">
+                    Sets & Chase Cards
+                </button>
+                <button onclick="switchTab('foils')" id="tab-foils" class="tab-btn pb-3 px-4 border-b-2 border-transparent text-slate-400 hover:text-slate-700">
+                    Foil Types
+                </button>
+            </div>
+
+            <!-- Tab 1: Products -->
+            <div id="content-products" class="tab-content space-y-4">
+                <div class="overflow-hidden card-ripit border-0">
+                    <table class="w-full text-left text-xs sm:text-sm text-slate-600">
+                        <thead class="bg-slate-900 text-white text-xs uppercase font-extrabold tracking-wider">
+                            <tr>
+                                <th class="py-4 px-5">Product</th>
+                                <th class="py-4 px-5">Inside Contents</th>
+                                <th class="py-4 px-5">Best Target</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productTableBody" class="divide-y divide-slate-100 font-medium">
+                            <!-- JS Populated -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tab 2: Sets -->
+            <div id="content-sets" class="tab-content hidden space-y-4">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-base font-extrabold text-slate-900 uppercase tracking-wider">Historic Sets & Top Hits</h2>
+                    <select id="setSort" onchange="filterAndRenderSets()" class="text-xs font-bold bg-white border border-slate-200 rounded-lg px-3 py-2 text-slate-700">
+                        <option value="chronological">Release Date</option>
+                        <option value="price-desc">Top Value (High-Low)</option>
+                    </select>
+                </div>
+                <div class="overflow-hidden card-ripit border-0">
+                    <table class="w-full text-left text-xs sm:text-sm text-slate-600">
+                        <thead class="bg-slate-900 text-white text-xs uppercase font-extrabold tracking-wider">
+                            <tr>
+                                <th class="py-4 px-5">Release</th>
+                                <th class="py-4 px-5">Set Name</th>
+                                <th class="py-4 px-5">Top Chase Card</th>
+                                <th class="py-4 px-5">Est. Price</th>
+                                <th class="py-4 px-5">Highlights</th>
+                            </tr>
+                        </thead>
+                        <tbody id="setTableBody" class="divide-y divide-slate-100 font-medium">
+                            <!-- JS Populated -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tab 3: Foils -->
+            <div id="content-foils" class="tab-content hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="foilGrid">
+                    <!-- JS Populated -->
+                </div>
+            </div>
+        </div>
+
+        <!-- OPTION B: Card Grid -->
+        <div id="layoutOptionB" class="hidden space-y-6">
+            <div class="flex flex-wrap gap-2 text-xs font-bold">
+                <button onclick="filterGrid('all')" class="grid-filter-btn px-4 py-2 rounded-full bg-slate-900 text-white">All Items</button>
+                <button onclick="filterGrid('product')" class="grid-filter-btn px-4 py-2 rounded-full bg-white text-slate-600 border border-slate-200 hover:bg-slate-50">Products</button>
+                <button onclick="filterGrid('set')" class="grid-filter-btn px-4 py-2 rounded-full bg-white text-slate-600 border border-slate-200 hover:bg-slate-50">Sets & Chases</button>
+                <button onclick="filterGrid('foil')" class="grid-filter-btn px-4 py-2 rounded-full bg-white text-slate-600 border border-slate-200 hover:bg-slate-50">Foil Types</button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="quietLuxuryGrid">
+                <!-- JS Populated -->
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Modal for Details -->
+    <div id="detailModal" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4 relative border border-slate-100">
+            <button onclick="closeModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-100 py-8 text-center text-xs font-bold text-slate-400 space-y-1 mt-auto">
+        <p><span class="brand-red font-black italic">Feefy Ripz</span> — Interactive Pokémon TCG Companion</p>
+    </footer>
+
+    <!-- JavaScript Data & Logic -->
+    <script>
+        const productsData = [
+            { name: "Booster Pack", contents: "10 Cards + 1 Basic Energy (Special: 5 Foil cards)", target: "Core unit for all collectors and players." },
+            { name: "Booster Bundle", contents: "6 Booster Packs bundled together", target: "For collectors wanting more than single packs." },
+            { name: "Booster Display Box", contents: "36 Booster Packs", target: "Best price per pack. Ideal for heavy opening or sealed investment." },
+            { name: "Elite Trainer Box (ETB)", contents: "8-9 Booster Packs + Promo Card + Sleeves + Dice + Storage Box", target: "Collectors who want premium accessories & storage." },
+            { name: "Pokémon Center ETB", contents: "Same as ETB + 2 extra packs & exclusive stamped promo", target: "Exclusive channel-specific collectors." },
+            { name: "Collection / Ex Box", contents: "4 Booster Packs + 1 Promo Card + 1 Oversize Card", target: "Specific Pokémon character fans / Ideal gifts." },
+            { name: "Blister (Tripack/Duo)", contents: "2-3 Booster Packs + Promo card or pin", target: "Impulse store pick-ups & beginners." },
+            { name: "Poster / Tech Sticker Collection", contents: "3 Booster Packs + Promo + Double-sided Poster/Sticker", target: "Peripheral collectors." },
+            { name: "Ultra Premium Collection (UPC)", contents: "Special promos + Metal coin + Enamel pin + High pack count", target: "High-budget premium investors." },
+            { name: "Collector Chest (Suitcase)", contents: "Suitcase tin box + packs + mini toys & stationery", target: "Kids and beginners." },
+            { name: "Build & Battle Box", contents: "40-card deck + 1 of 4 foil promos", target: "Players testing pre-release formats." }
+        ];
+
+        const setsData = [
+            { date: "May 2002", set: "Legendary Collection", chase: "Charizard reprint (Reverse Holo)", value: "Market Live Rate", note: "First set to introduce Reverse Holo." },
+            { date: "May 2015", set: "Roaring Skies", chase: "Mega Rayquaza-EX Full Art", value: "Moderate", note: "Introduced Ancient Traits." },
+            { date: "Aug 2015", set: "Ancient Origins", chase: "M Rayquaza EX Shiny FA #98", value: "~$1,069 (+2,070%)", note: "Out of print; steady growth." },
+            { date: "Nov 2016", set: "XY Evolutions", chase: "Charizard / Mega Charizard EX", value: "Accessible", note: "20th Anniversary celebration." },
+            { date: "Feb 2019", set: "Sun & Moon: Team Up", chase: "Latias & Latios-GX Alt Art #170", value: "~$3,215", note: "Introduced TAG TEAM-GX." },
+            { date: "Nov 2019", set: "Cosmic Eclipse", chase: "Tag Team / Secret Rare varieties", value: "Moderate-High", note: "Sun & Moon finale set." },
+            { date: "Aug 2021", set: "Evolving Skies", chase: "Umbreon VMAX Alt Art 'Moonbreon'", value: "~$2,244", note: "Top chase of SwSh era." },
+            { date: "Nov 2021", set: "Fusion Strike", chase: "Espeon VMAX Alt Art #270", value: "~$260-300", note: "Counterpart set to Evolving Skies." },
+            { date: "Sep 2022", set: "Lost Origin", chase: "Giratina V Alt Art", value: "High Volatility", note: "Rivaled Moonbreon in value." },
+            { date: "Sep 2023", set: "151", chase: "Charizard ex SIR #199", value: "~$415", note: "Original Kanto 151 theme." },
+            { date: "Jan 2024", set: "Paldean Fates", chase: "Mew ex SIR 'Bubble Mew' #232", value: "~$350-450", note: "All-Shiny Vault set." },
+            { date: "Jan 2026", set: "Ascended Heroes", chase: "Mega Gengar ex #269/217", value: "~$60.95", note: "Debuted Mega Attack Rare." }
+        ];
+
+        // Modern Thai Descriptions from Excel
+        const foilData = [
+            { type: "Non-Holo", appearance: "ด้านทั้งใบ ไม่มันวาวเลย", startEra: "ตั้งแต่เริ่มมี TCG (1996)" },
+            { type: "Holo (Holofoil)", appearance: "มันวาวเฉพาะตัวภาพวาด Pokémon ส่วนขอบ/ตัวอักษรด้าน", startEra: "Base Set ปี 1999" },
+            { type: "Reverse Holo", appearance: "มันวาวทั้งใบ ยกเว้นตัวภาพวาด (สลับด้านกับ Holo)", startEra: "Legendary Collection ปี 2002" },
+            { type: "Cosmos / Cracked Ice", appearance: "ลายฟอยล์เฉพาะรูปแบบ แตกต่างกันไปตามยุคที่ออก", startEra: "แต่ละเซ็ตมีลายเฉพาะตัว" },
+            { type: "Textured Foil (SAR/UR)", appearance: "ฟอยล์นูนเป็นลายเส้น เต็มภาพทั้งใบ", startEra: "ยุค Scarlet & Violet เป็นต้นมา" }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            renderSets();
+            renderFoils();
+            renderQuietLuxuryGrid();
+            lucide.createIcons();
+
+            const handleSearch = (e) => filterGlobal(e.target.value.toLowerCase());
+            document.getElementById('globalSearch').addEventListener('input', handleSearch);
+            document.getElementById('globalSearchMobile').addEventListener('input', handleSearch);
+        });
+
+        function switchUIMode(mode) {
+            const optionA = document.getElementById('layoutOptionA');
+            const optionB = document.getElementById('layoutOptionB');
+            const btnA = document.getElementById('btnOptionA');
+            const btnB = document.getElementById('btnOptionB');
+
+            if (mode === 'optionA') {
+                optionA.classList.remove('hidden');
+                optionB.classList.add('hidden');
+                btnA.className = "px-4 py-2 rounded-full transition-all bg-slate-900 text-white shadow-xs";
+                btnB.className = "px-4 py-2 rounded-full transition-all bg-slate-100 text-slate-600 hover:bg-slate-200";
+            } else {
+                optionA.classList.add('hidden');
+                optionB.classList.remove('hidden');
+                btnB.className = "px-4 py-2 rounded-full transition-all bg-slate-900 text-white shadow-xs";
+                btnA.className = "px-4 py-2 rounded-full transition-all bg-slate-100 text-slate-600 hover:bg-slate-200";
+            }
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('border-red-600', 'text-red-600');
+                btn.classList.add('border-transparent', 'text-slate-400');
+            });
+
+            document.getElementById(`content-${tabId}`).classList.remove('hidden');
+            const active = document.getElementById(`tab-${tabId}`);
+            active.classList.remove('border-transparent', 'text-slate-400');
+            active.classList.add('border-red-600', 'text-red-600');
+        }
+
+        function renderProducts(filter = '') {
+            const tbody = document.getElementById('productTableBody');
+            const filtered = productsData.filter(p => p.name.toLowerCase().includes(filter) || p.contents.toLowerCase().includes(filter));
+            
+            tbody.innerHTML = filtered.map(p => `
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="py-4 px-5 font-bold text-slate-900">${p.name}</td>
+                    <td class="py-4 px-5 text-slate-600">${p.contents}</td>
+                    <td class="py-4 px-5 text-slate-400 font-normal">${p.target}</td>
+                </tr>
+            `).join('');
+        }
+
+        function renderSets(filter = '', sort = 'chronological') {
+            const tbody = document.getElementById('setTableBody');
+            let items = [...setsData].filter(s => s.set.toLowerCase().includes(filter) || s.chase.toLowerCase().includes(filter));
+
+            if (sort === 'price-desc') {
+                items.sort((a, b) => (parseInt(b.value.replace(/[^0-9]/g, '')) || 0) - (parseInt(a.value.replace(/[^0-9]/g, '')) || 0));
+            }
+
+            tbody.innerHTML = items.map(s => `
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="py-4 px-5 font-mono text-xs font-bold text-slate-400">${s.date}</td>
+                    <td class="py-4 px-5 font-bold text-slate-900">${s.set}</td>
+                    <td class="py-4 px-5 font-extrabold brand-red">${s.chase}</td>
+                    <td class="py-4 px-5 font-bold text-slate-900">${s.value}</td>
+                    <td class="py-4 px-5 text-xs text-slate-400">${s.note}</td>
+                </tr>
+            `).join('');
+        }
+
+        function filterAndRenderSets() {
+            renderSets(document.getElementById('globalSearch').value.toLowerCase(), document.getElementById('setSort').value);
+        }
+
+        function renderFoils() {
+            const grid = document.getElementById('foilGrid');
+            grid.innerHTML = foilData.map(f => `
+                <div class="card-ripit p-5 space-y-2">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-extrabold text-slate-900">${f.type}</h3>
+                        <span class="text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">${f.startEra}</span>
+                    </div>
+                    <p class="text-xs font-normal text-slate-600 leading-relaxed">${f.appearance}</p>
+                </div>
+            `).join('');
+        }
+
+        function renderQuietLuxuryGrid(filterType = 'all', search = '') {
+            const container = document.getElementById('quietLuxuryGrid');
+            let cards = [];
+
+            if (filterType === 'all' || filterType === 'product') {
+                productsData.forEach(p => cards.push({ category: 'Product', title: p.name, sub: p.contents, details: p, type: 'product' }));
+            }
+            if (filterType === 'all' || filterType === 'set') {
+                setsData.forEach(s => cards.push({ category: 'Set & Chase', title: s.set, sub: `Chase: ${s.chase} (${s.value})`, details: s, type: 'set' }));
+            }
+            if (filterType === 'all' || filterType === 'foil') {
+                foilData.forEach(f => cards.push({ category: 'Foil Types', title: f.type, sub: f.appearance, details: f, type: 'foil' }));
+            }
+
+            if (search) {
+                cards = cards.filter(c => c.title.toLowerCase().includes(search) || c.sub.toLowerCase().includes(search));
+            }
+
+            container.innerHTML = cards.map((c, index) => `
+                <div onclick="openModal('${c.type}', ${index})" class="card-ripit p-5 hover:border-red-400 cursor-pointer transition-all flex flex-col justify-between h-48 group">
+                    <div>
+                        <span class="text-[9px] uppercase font-black tracking-widest text-slate-400 block mb-1">${c.category}</span>
+                        <h3 class="font-extrabold text-slate-900 group-hover:brand-red transition-colors">${c.title}</h3>
+                        <p class="text-xs font-normal text-slate-500 mt-2 line-clamp-2">${c.sub}</p>
+                    </div>
+                    <div class="flex items-center text-xs font-bold text-slate-900 pt-3 border-t border-slate-50">
+                        <span>Details</span>
+                        <i data-lucide="arrow-right" class="w-3.5 h-3.5 ml-1 transition-transform group-hover:translate-x-1"></i>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function filterGrid(type) {
+            document.querySelectorAll('.grid-filter-btn').forEach(btn => {
+                btn.className = "grid-filter-btn px-4 py-2 rounded-full bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 text-xs font-bold";
+            });
+            event.target.className = "grid-filter-btn px-4 py-2 rounded-full bg-slate-900 text-white text-xs font-bold";
+            renderQuietLuxuryGrid(type, document.getElementById('globalSearch').value.toLowerCase());
+        }
+
+        function filterGlobal(query) {
+            renderProducts(query);
+            renderSets(query);
+            renderQuietLuxuryGrid('all', query);
+        }
+
+        function openModal(type, idx) {
+            const modal = document.getElementById('detailModal');
+            const content = document.getElementById('modalContent');
+            let item;
+
+            if (type === 'product') item = productsData[idx];
+            if (type === 'set') item = setsData[idx];
+            if (type === 'foil') item = foilData[idx];
+
+            if (!item) return;
+
+            let html = '';
+            if (type === 'product') {
+                html = `
+                    <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Product Specs</span>
+                    <h2 class="text-xl font-extrabold text-slate-900 mt-1">${item.name}</h2>
+                    <div class="space-y-3 mt-4 text-xs font-medium text-slate-700">
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                            <span class="font-bold text-slate-900 block mb-1">Contents</span>
+                            ${item.contents}
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                            <span class="font-bold text-slate-900 block mb-1">Target Audience</span>
+                            ${item.target}
+                        </div>
+                    </div>
+                `;
+            } else if (type === 'set') {
+                html = `
+                    <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Set Overview</span>
+                    <h2 class="text-xl font-extrabold text-slate-900 mt-1">${item.set}</h2>
+                    <p class="text-xs font-bold text-slate-400">Released: ${item.date}</p>
+                    <div class="space-y-3 mt-4 text-xs font-medium text-slate-700">
+                        <div class="bg-red-50 border border-red-100 p-4 rounded-2xl text-red-900">
+                            <span class="font-bold block mb-1">Top Hit Chase Card</span>
+                            ${item.chase}
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 flex justify-between">
+                            <span class="font-bold text-slate-900">Est. Price:</span>
+                            <span class="font-extrabold text-slate-900">${item.value}</span>
+                        </div>
+                    </div>
+                `;
+            } else if (type === 'foil') {
+                html = `
+                    <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Card Finish</span>
+                    <h2 class="text-xl font-extrabold text-slate-900 mt-1">${item.type}</h2>
+                    <div class="space-y-3 mt-4 text-xs font-medium text-slate-700">
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                            <span class="font-bold text-slate-900 block mb-1">ลักษณะเมื่อเอียงดู</span>
+                            ${item.appearance}
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                            <span class="font-bold text-slate-900 block mb-1">เริ่มมีตั้งแต่</span>
+                            ${item.startEra}
+                        </div>
+                    </div>
+                `;
+            }
+
+            content.innerHTML = html;
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('detailModal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

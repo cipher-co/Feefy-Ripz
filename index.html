@@ -104,12 +104,12 @@
             <div id="content-products" class="tab-content space-y-4">
                 <div class="card-ripit border-0 overflow-hidden">
                     <div class="overflow-x-auto touch-scroll custom-scrollbar">
-                        <table class="w-full text-left text-xs sm:text-sm text-slate-600 min-w-[640px]">
+                        <table class="w-full text-left text-xs sm:text-sm text-slate-600 min-w-[700px]">
                             <thead class="bg-slate-900 text-white text-xs uppercase font-extrabold tracking-wider">
                                 <tr>
-                                    <th class="py-4 px-5">Product</th>
-                                    <th class="py-4 px-5">Inside Contents</th>
-                                    <th class="py-4 px-5">Best Target</th>
+                                    <th class="py-4 px-5 whitespace-nowrap">Product Name</th>
+                                    <th class="py-4 px-5 whitespace-nowrap">เนื้อหาภายใน (Inside Contents)</th>
+                                    <th class="py-4 px-5 whitespace-nowrap">เหมาะกับใคร (Best Target)</th>
                                 </tr>
                             </thead>
                             <tbody id="productTableBody" class="divide-y divide-slate-100 font-medium">
@@ -132,7 +132,7 @@
                 <!-- Responsive Horizontal Scroll Container for Mobile -->
                 <div class="card-ripit border-0 overflow-hidden">
                     <div class="overflow-x-auto touch-scroll custom-scrollbar">
-                        <table class="w-full text-left text-xs sm:text-sm text-slate-600 min-w-[640px]">
+                        <table class="w-full text-left text-xs sm:text-sm text-slate-600 min-w-[700px]">
                             <thead class="bg-slate-900 text-white text-xs uppercase font-extrabold tracking-wider">
                                 <tr>
                                     <th class="py-4 px-5 whitespace-nowrap">Release</th>
@@ -191,33 +191,79 @@
 
     <!-- JavaScript Data & Logic -->
     <script>
+        // Products Data (Thai Translation Mapping from Excel Sheet)
         const productsData = [
-            { name: "Booster Pack", contents: "10 Cards + 1 Basic Energy (Special: 5 Foil cards)", target: "Core unit for all collectors and players." },
-            { name: "Booster Bundle", contents: "6 Booster Packs bundled together", target: "For collectors wanting more than single packs." },
-            { name: "Booster Display Box", contents: "36 Booster Packs", target: "Best price per pack. Ideal for heavy opening or sealed investment." },
-            { name: "Elite Trainer Box (ETB)", contents: "8-9 Booster Packs + Promo Card + Sleeves + Dice + Storage Box", target: "Collectors who want premium accessories & storage." },
-            { name: "Pokémon Center ETB", contents: "Same as ETB + 2 extra packs & exclusive stamped promo", target: "Exclusive channel-specific collectors." },
-            { name: "Collection / Ex Box", contents: "4 Booster Packs + 1 Promo Card + 1 Oversize Card", target: "Specific Pokémon character fans / Ideal gifts." },
-            { name: "Blister (Tripack/Duo)", contents: "2-3 Booster Packs + Promo card or pin", target: "Impulse store pick-ups & beginners." },
-            { name: "Poster / Tech Sticker Collection", contents: "3 Booster Packs + Promo + Double-sided Poster/Sticker", target: "Peripheral collectors." },
-            { name: "Ultra Premium Collection (UPC)", contents: "Special promos + Metal coin + Enamel pin + High pack count", target: "High-budget premium investors." },
-            { name: "Collector Chest (Suitcase)", contents: "Suitcase tin box + packs + mini toys & stationery", target: "Kids and beginners." },
-            { name: "Build & Battle Box", contents: "40-card deck + 1 of 4 foil promos", target: "Players testing pre-release formats." }
+            { 
+                name: "Booster Pack", 
+                contents: "10 ใบ + พลังงานพื้นฐาน 1 ใบ (บางเซ็ตพิเศษเป็น 5 ใบฟอยล์ + พลังงานฟอยล์)", 
+                target: "หน่วยพื้นฐานที่สุดของทุกผลิตภัณฑ์" 
+            },
+            { 
+                name: "Booster Bundle", 
+                contents: "ซองบูสเตอร์ 6 ซองรวมกัน", 
+                target: "อยากได้มากกว่า 1 ซองแต่ไม่ถึงระดับกล่อง" 
+            },
+            { 
+                name: "Booster Display Box", 
+                contents: "ซองบูสเตอร์ 36 ซอง", 
+                target: "ราคาต่อซองดีที่สุด เหมาะเปิดเยอะหรือลงทุนทั้งกล่องแบบไม่แกะ" 
+            },
+            { 
+                name: "Elite Trainer Box (ETB)", 
+                contents: "ซอง 8-9 ซอง + โปรโมฟอยล์ 1 ใบ + sleeves 65 ใบ + พลังงาน 40-45 ใบ + ลูกเต๋า/เหรียญ + กล่องเก็บ", 
+                target: "อยากได้อุปกรณ์เสริมและกล่องเก็บสวยงาม" 
+            },
+            { 
+                name: "Pokémon Center ETB", 
+                contents: "เหมือน ETB ปกติแต่ซองเพิ่มขึ้น 2 ซอง พร้อมโปรโมที่มีตราประทับพิเศษ", 
+                target: "นักสะสมที่ตามรุ่นพิเศษเฉพาะช่องทาง" 
+            },
+            { 
+                name: "Collection / Ex Box", 
+                contents: "ซอง 4 ซอง + โปรโม 1 ใบ + การ์ดขนาดใหญ่พิเศษ (oversize card)", 
+                target: "เก็บตัวละครเฉพาะตัวที่ชอบ / ของขวัญ" 
+            },
+            { 
+                name: "Blister (Tripack/Duo)", 
+                contents: "ซอง 2-3 ซอง + โปรโมหรือ pin เล็ก", 
+                target: "มือใหม่งบน้อย วางขายตามชั้นแคชเชียร์" 
+            },
+            { 
+                name: "Poster / Tech Sticker Collection", 
+                contents: "ซอง 3 ซอง + โปรโม + โปสเตอร์สองหน้าหรือสติกเกอร์", 
+                target: "เน้นของสะสมเสริมมากกว่าปริมาณการ์ด" 
+            },
+            { 
+                name: "Ultra Premium Collection (UPC)", 
+                contents: "โปรโมพิเศษ + pin เคลือบเงา + เหรียญโลหะ + ซองจำนวนมาก", 
+                target: "นักลงทุน/นักสะสมสายพรีเมียม งบสูง" 
+            },
+            { 
+                name: "Collector Chest (Suitcase)", 
+                contents: "กล่องทรงกระเป๋าเดินทาง + ซองไม่กี่ซอง + ของเล่นเสริม", 
+                target: "กลุ่มเด็กและผู้เริ่มต้น" 
+            },
+            { 
+                name: "Build & Battle Box (Prerelease)", 
+                contents: "เด็ค 40 ใบพร้อมเล่น + โปรโมฟอยล์ 1 ใน 4 แบบ", 
+                target: "อยากลองเล่นทันทีไม่ต้องสร้างเด็คเอง" 
+            }
         ];
 
+        // Sets & Chase Cards Data (Thai Translation Mapping from Excel Sheet)
         const setsData = [
-            { date: "May 2002", set: "Legendary Collection", chase: "Charizard reprint (Reverse Holo)", value: "Market Live Rate", note: "First set to introduce Reverse Holo." },
-            { date: "May 2015", set: "Roaring Skies", chase: "Mega Rayquaza-EX Full Art", value: "Moderate", note: "Introduced Ancient Traits." },
-            { date: "Aug 2015", set: "Ancient Origins", chase: "M Rayquaza EX Shiny FA #98", value: "~$1,069 (+2,070%)", note: "Out of print; steady growth." },
-            { date: "Nov 2016", set: "XY Evolutions", chase: "Charizard / Mega Charizard EX", value: "Accessible", note: "20th Anniversary celebration." },
-            { date: "Feb 2019", set: "Sun & Moon: Team Up", chase: "Latias & Latios-GX Alt Art #170", value: "~$3,215", note: "Introduced TAG TEAM-GX." },
-            { date: "Nov 2019", set: "Cosmic Eclipse", chase: "Tag Team / Secret Rare varieties", value: "Moderate-High", note: "Sun & Moon finale set." },
-            { date: "Aug 2021", set: "Evolving Skies", chase: "Umbreon VMAX Alt Art 'Moonbreon'", value: "~$2,244", note: "Top chase of SwSh era." },
-            { date: "Nov 2021", set: "Fusion Strike", chase: "Espeon VMAX Alt Art #270", value: "~$260-300", note: "Counterpart set to Evolving Skies." },
-            { date: "Sep 2022", set: "Lost Origin", chase: "Giratina V Alt Art", value: "High Volatility", note: "Rivaled Moonbreon in value." },
-            { date: "Sep 2023", set: "151", chase: "Charizard ex SIR #199", value: "~$415", note: "Original Kanto 151 theme." },
-            { date: "Jan 2024", set: "Paldean Fates", chase: "Mew ex SIR 'Bubble Mew' #232", value: "~$350-450", note: "All-Shiny Vault set." },
-            { date: "Jan 2026", set: "Ascended Heroes", chase: "Mega Gengar ex #269/217", value: "~$60.95", note: "Debuted Mega Attack Rare." }
+            { date: "พ.ค. 2002", set: "Legendary Collection", chase: "Charizard reprint (Reverse Holo)", value: "ต้องเช็คราคาสด (เซ็ตเก่ามาก)", note: "เซ็ตแรกที่มี Reverse Holo ทั้งเซ็ต" },
+            { date: "พ.ค. 2015", set: "Roaring Skies", chase: "Mega Rayquaza-EX Full Art", value: "ราคาปานกลาง", note: "เปิดตัว Ancient Trait" },
+            { date: "ส.ค. 2015", set: "Ancient Origins", chase: "M Rayquaza EX Shiny FA #98/98", value: "~$1,069 (ขึ้น 2,070% จากวันวางขาย)", note: "Out of print ราคาขึ้นต่อเนื่อง" },
+            { date: "พ.ย. 2016", set: "XY Evolutions", chase: "Charizard reprint / Mega Charizard EX", value: "ราคาเข้าถึงง่าย", note: "เซ็ตฉลอง 20 ปี Pokémon TCG" },
+            { date: "ก.พ. 2019", set: "Sun & Moon: Team Up", chase: "Latias & Latios-GX Alt Art #170", value: "~$3,215", note: "เปิดตัวกลไก TAG TEAM-GX" },
+            { date: "พ.ย. 2019", set: "Cosmic Eclipse", chase: "Tag Team / Secret Rare หลากหลาย", value: "ราคากลาง", note: "เซ็ตปิดท้ายยุค Sun & Moon 271 ใบ" },
+            { date: "ส.ค. 2021", set: "Evolving Skies", chase: "Umbreon VMAX Alt Art 'Moonbreon' #215", value: "~$2,244", note: "Chase card ที่แพงสุดของยุค Sword & Shield" },
+            { date: "พ.ย. 2021", set: "Fusion Strike", chase: "Espeon VMAX Alt Art #270", value: "~$260-300 (PSA 9)", note: "คู่เทียบของ Evolving Skies" },
+            { date: "ก.ย. 2022", set: "Lost Origin", chase: "Giratina V Alt Art", value: "ผันผวนสูง", note: "เคยเป็นอันดับ 2 รองจาก Moonbreon" },
+            { date: "ก.ย. 2023", set: "151", chase: "Charizard ex SIR #199", value: "~$415 (มี.ค. 2026)", note: "ธีม Kanto 151 ตัวแรก ราคาไต่ขึ้นต่อเนื่อง" },
+            { date: "ม.ค. 2024", set: "Paldean Fates", chase: "Mew ex SIR 'Bubble Mew' #232", value: "~$350-450", note: "เซ็ต Shiny Vault ล้วน ไม่มี non-shiny" },
+            { date: "ม.ค. 2026", set: "Ascended Heroes", chase: "Mega Gengar ex #269/217", value: "~$60.95 (ก.ค. 2026)", note: "เปิดตัว rarity ใหม่ Mega Attack Rare" }
         ];
 
         const foilData = [
@@ -274,20 +320,20 @@
 
         function renderProducts(filter = '') {
             const tbody = document.getElementById('productTableBody');
-            const filtered = productsData.filter(p => p.name.toLowerCase().includes(filter) || p.contents.toLowerCase().includes(filter));
+            const filtered = productsData.filter(p => p.name.toLowerCase().includes(filter) || p.contents.toLowerCase().includes(filter) || p.target.toLowerCase().includes(filter));
             
             tbody.innerHTML = filtered.map(p => `
                 <tr class="hover:bg-slate-50 transition-colors">
-                    <td class="py-4 px-5 font-bold text-slate-900">${p.name}</td>
-                    <td class="py-4 px-5 text-slate-600">${p.contents}</td>
-                    <td class="py-4 px-5 text-slate-400 font-normal">${p.target}</td>
+                    <td class="py-4 px-5 font-bold text-slate-900 whitespace-nowrap">${p.name}</td>
+                    <td class="py-4 px-5 text-slate-600 min-w-[260px]">${p.contents}</td>
+                    <td class="py-4 px-5 text-slate-500 font-normal min-w-[220px]">${p.target}</td>
                 </tr>
             `).join('');
         }
 
         function renderSets(filter = '', sort = 'chronological') {
             const tbody = document.getElementById('setTableBody');
-            let items = [...setsData].filter(s => s.set.toLowerCase().includes(filter) || s.chase.toLowerCase().includes(filter));
+            let items = [...setsData].filter(s => s.set.toLowerCase().includes(filter) || s.chase.toLowerCase().includes(filter) || s.note.toLowerCase().includes(filter));
 
             if (sort === 'price-desc') {
                 items.sort((a, b) => (parseInt(b.value.replace(/[^0-9]/g, '')) || 0) - (parseInt(a.value.replace(/[^0-9]/g, '')) || 0));
@@ -299,7 +345,7 @@
                     <td class="py-4 px-5 font-bold text-slate-900 whitespace-nowrap">${s.set}</td>
                     <td class="py-4 px-5 font-extrabold brand-red whitespace-nowrap">${s.chase}</td>
                     <td class="py-4 px-5 font-bold text-slate-900 whitespace-nowrap">${s.value}</td>
-                    <td class="py-4 px-5 text-xs text-slate-400 min-w-[200px]">${s.note}</td>
+                    <td class="py-4 px-5 text-xs text-slate-500 min-w-[220px]">${s.note}</td>
                 </tr>
             `).join('');
         }
@@ -387,11 +433,11 @@
                     <h2 class="text-xl font-extrabold text-slate-900 mt-1">${item.name}</h2>
                     <div class="space-y-3 mt-4 text-xs font-medium text-slate-700">
                         <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                            <span class="font-bold text-slate-900 block mb-1">Contents</span>
+                            <span class="font-bold text-slate-900 block mb-1">เนื้อหาภายใน:</span>
                             ${item.contents}
                         </div>
                         <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                            <span class="font-bold text-slate-900 block mb-1">Target Audience</span>
+                            <span class="font-bold text-slate-900 block mb-1">เหมาะกับใคร:</span>
                             ${item.target}
                         </div>
                     </div>
@@ -400,15 +446,19 @@
                 html = `
                     <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Set Overview</span>
                     <h2 class="text-xl font-extrabold text-slate-900 mt-1">${item.set}</h2>
-                    <p class="text-xs font-bold text-slate-400">Released: ${item.date}</p>
+                    <p class="text-xs font-bold text-slate-400">ปีที่ออก: ${item.date}</p>
                     <div class="space-y-3 mt-4 text-xs font-medium text-slate-700">
                         <div class="bg-red-50 border border-red-100 p-4 rounded-2xl text-red-900">
-                            <span class="font-bold block mb-1">Top Hit Chase Card</span>
+                            <span class="font-bold block mb-1">Top Chase Card</span>
                             ${item.chase}
                         </div>
-                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 flex justify-between">
-                            <span class="font-bold text-slate-900">Est. Price:</span>
-                            <span class="font-extrabold text-slate-900">${item.value}</span>
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 flex justify-between items-center">
+                            <span class="font-bold text-slate-900">ราคาโดยประมาณ:</span>
+                            <span class="font-bold brand-red">${item.value}</span>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                            <span class="font-bold text-slate-900 block mb-1">หมายเหตุ / จุดเด่น</span>
+                            ${item.note}
                         </div>
                     </div>
                 `;

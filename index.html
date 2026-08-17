@@ -25,6 +25,21 @@
             box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
             border: 1px solid #F1F5F9;
         }
+        /* Touch Smooth Scrolling for Mobile iOS */
+        .touch-scroll {
+            -webkit-overflow-scrolling: touch;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #F1F5F9;
+            border-radius: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 8px;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased">
@@ -73,60 +88,65 @@
 
         <!-- OPTION A: Tab Navigation -->
         <div id="layoutOptionA" class="space-y-6">
-            <div class="flex space-x-2 border-b border-slate-200 text-sm font-bold">
-                <button onclick="switchTab('products')" id="tab-products" class="tab-btn pb-3 px-4 border-b-2 border-red-600 text-red-600">
+            <div class="flex space-x-2 border-b border-slate-200 text-sm font-bold overflow-x-auto touch-scroll custom-scrollbar pb-0.5">
+                <button onclick="switchTab('products')" id="tab-products" class="tab-btn pb-3 px-4 border-b-2 border-red-600 text-red-600 whitespace-nowrap">
                     Product Lineup
                 </button>
-                <button onclick="switchTab('sets')" id="tab-sets" class="tab-btn pb-3 px-4 border-b-2 border-transparent text-slate-400 hover:text-slate-700">
+                <button onclick="switchTab('sets')" id="tab-sets" class="tab-btn pb-3 px-4 border-b-2 border-transparent text-slate-400 hover:text-slate-700 whitespace-nowrap">
                     Sets & Chase Cards
                 </button>
-                <button onclick="switchTab('foils')" id="tab-foils" class="tab-btn pb-3 px-4 border-b-2 border-transparent text-slate-400 hover:text-slate-700">
+                <button onclick="switchTab('foils')" id="tab-foils" class="tab-btn pb-3 px-4 border-b-2 border-transparent text-slate-400 hover:text-slate-700 whitespace-nowrap">
                     Foil Types
                 </button>
             </div>
 
             <!-- Tab 1: Products -->
             <div id="content-products" class="tab-content space-y-4">
-                <div class="overflow-hidden card-ripit border-0">
-                    <table class="w-full text-left text-xs sm:text-sm text-slate-600">
-                        <thead class="bg-slate-900 text-white text-xs uppercase font-extrabold tracking-wider">
-                            <tr>
-                                <th class="py-4 px-5">Product</th>
-                                <th class="py-4 px-5">Inside Contents</th>
-                                <th class="py-4 px-5">Best Target</th>
-                            </tr>
-                        </thead>
-                        <tbody id="productTableBody" class="divide-y divide-slate-100 font-medium">
-                            <!-- JS Populated -->
-                        </tbody>
-                    </table>
+                <div class="card-ripit border-0 overflow-hidden">
+                    <div class="overflow-x-auto touch-scroll custom-scrollbar">
+                        <table class="w-full text-left text-xs sm:text-sm text-slate-600 min-w-[640px]">
+                            <thead class="bg-slate-900 text-white text-xs uppercase font-extrabold tracking-wider">
+                                <tr>
+                                    <th class="py-4 px-5">Product</th>
+                                    <th class="py-4 px-5">Inside Contents</th>
+                                    <th class="py-4 px-5">Best Target</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productTableBody" class="divide-y divide-slate-100 font-medium">
+                                <!-- JS Populated -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
             <!-- Tab 2: Sets -->
             <div id="content-sets" class="tab-content hidden space-y-4">
-                <div class="flex justify-between items-center">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <h2 class="text-base font-extrabold text-slate-900 uppercase tracking-wider">Historic Sets & Top Hits</h2>
                     <select id="setSort" onchange="filterAndRenderSets()" class="text-xs font-bold bg-white border border-slate-200 rounded-lg px-3 py-2 text-slate-700">
                         <option value="chronological">Release Date</option>
                         <option value="price-desc">Top Value (High-Low)</option>
                     </select>
                 </div>
-                <div class="overflow-hidden card-ripit border-0">
-                    <table class="w-full text-left text-xs sm:text-sm text-slate-600">
-                        <thead class="bg-slate-900 text-white text-xs uppercase font-extrabold tracking-wider">
-                            <tr>
-                                <th class="py-4 px-5">Release</th>
-                                <th class="py-4 px-5">Set Name</th>
-                                <th class="py-4 px-5">Top Chase Card</th>
-                                <th class="py-4 px-5">Est. Price</th>
-                                <th class="py-4 px-5">Highlights</th>
-                            </tr>
-                        </thead>
-                        <tbody id="setTableBody" class="divide-y divide-slate-100 font-medium">
-                            <!-- JS Populated -->
-                        </tbody>
-                    </table>
+                <!-- Responsive Horizontal Scroll Container for Mobile -->
+                <div class="card-ripit border-0 overflow-hidden">
+                    <div class="overflow-x-auto touch-scroll custom-scrollbar">
+                        <table class="w-full text-left text-xs sm:text-sm text-slate-600 min-w-[640px]">
+                            <thead class="bg-slate-900 text-white text-xs uppercase font-extrabold tracking-wider">
+                                <tr>
+                                    <th class="py-4 px-5 whitespace-nowrap">Release</th>
+                                    <th class="py-4 px-5 whitespace-nowrap">Set Name</th>
+                                    <th class="py-4 px-5 whitespace-nowrap">Top Chase Card</th>
+                                    <th class="py-4 px-5 whitespace-nowrap">Est. Price</th>
+                                    <th class="py-4 px-5 whitespace-nowrap">Highlights</th>
+                                </tr>
+                            </thead>
+                            <tbody id="setTableBody" class="divide-y divide-slate-100 font-medium">
+                                <!-- JS Populated -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
@@ -200,7 +220,6 @@
             { date: "Jan 2026", set: "Ascended Heroes", chase: "Mega Gengar ex #269/217", value: "~$60.95", note: "Debuted Mega Attack Rare." }
         ];
 
-        // Modern Thai Descriptions from Excel
         const foilData = [
             { type: "Non-Holo", appearance: "ด้านทั้งใบ ไม่มันวาวเลย", startEra: "ตั้งแต่เริ่มมี TCG (1996)" },
             { type: "Holo (Holofoil)", appearance: "มันวาวเฉพาะตัวภาพวาด Pokémon ส่วนขอบ/ตัวอักษรด้าน", startEra: "Base Set ปี 1999" },
@@ -276,11 +295,11 @@
 
             tbody.innerHTML = items.map(s => `
                 <tr class="hover:bg-slate-50 transition-colors">
-                    <td class="py-4 px-5 font-mono text-xs font-bold text-slate-400">${s.date}</td>
-                    <td class="py-4 px-5 font-bold text-slate-900">${s.set}</td>
-                    <td class="py-4 px-5 font-extrabold brand-red">${s.chase}</td>
-                    <td class="py-4 px-5 font-bold text-slate-900">${s.value}</td>
-                    <td class="py-4 px-5 text-xs text-slate-400">${s.note}</td>
+                    <td class="py-4 px-5 font-mono text-xs font-bold text-slate-400 whitespace-nowrap">${s.date}</td>
+                    <td class="py-4 px-5 font-bold text-slate-900 whitespace-nowrap">${s.set}</td>
+                    <td class="py-4 px-5 font-extrabold brand-red whitespace-nowrap">${s.chase}</td>
+                    <td class="py-4 px-5 font-bold text-slate-900 whitespace-nowrap">${s.value}</td>
+                    <td class="py-4 px-5 text-xs text-slate-400 min-w-[200px]">${s.note}</td>
                 </tr>
             `).join('');
         }

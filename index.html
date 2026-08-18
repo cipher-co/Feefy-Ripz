@@ -98,7 +98,6 @@
                 <button onclick="switchTab('foils')" id="tab-foils" class="tab-btn pb-3 px-4 border-b-2 border-transparent text-slate-400 hover:text-slate-700 whitespace-nowrap">
                     Foil Types
                 </button>
-                <!-- New Tab: Card Trick -->
                 <button onclick="switchTab('tricks')" id="tab-tricks" class="tab-btn pb-3 px-4 border-b-2 border-transparent text-slate-400 hover:text-slate-700 whitespace-nowrap">
                     Card Trick
                 </button>
@@ -133,7 +132,6 @@
                         <option value="price-desc">Top Value (High-Low)</option>
                     </select>
                 </div>
-                <!-- Responsive Horizontal Scroll Container for Mobile -->
                 <div class="card-ripit border-0 overflow-hidden">
                     <div class="overflow-x-auto touch-scroll custom-scrollbar">
                         <table class="w-full text-left text-xs sm:text-sm text-slate-600 min-w-[700px]">
@@ -161,7 +159,7 @@
                 </div>
             </div>
 
-            <!-- Tab 4: Card Trick (NEW) -->
+            <!-- Tab 4: Card Trick -->
             <div id="content-tricks" class="tab-content hidden space-y-6">
                 <!-- Info Banner -->
                 <div class="bg-slate-900 text-white p-6 rounded-3xl shadow-sm space-y-2">
@@ -170,7 +168,7 @@
                         <span>Pack Opening Guide</span>
                     </div>
                     <h2 class="text-xl font-extrabold">Pokémon Card Pack Trick Guide</h2>
-                    <p class="text-xs text-slate-300 leading-relaxed max-w-3xl">
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-3xl">
                         "Card Trick" คือเทคนิคการสับย้ายการ์ดจากด้านหลังซองมาไว้ด้านหน้า เพื่อซ่อนการ์ดหายาก (Rare / Secret Rare / Holo) ไว้เปิดลุ้นเป็นใบสุดท้ายเพื่อความตื่นเต้น!
                     </p>
                 </div>
@@ -195,31 +193,31 @@
                 </div>
 
                 <!-- Pro Tips Box -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs sm:text-sm">
                     <div class="card-ripit p-5 space-y-2 border-l-4 border-l-red-500">
-                        <h3 class="font-extrabold text-slate-900 flex items-center">
+                        <h3 class="font-extrabold text-slate-900 flex items-center text-sm sm:text-base">
                             <i data-lucide="info" class="w-4 h-4 text-red-500 mr-1.5"></i>
                             ถอด Code Card ก่อนเสมอ
                         </h3>
-                        <p class="text-slate-500 leading-relaxed">
+                        <p class="text-slate-500 leading-relaxed text-xs sm:text-sm">
                             เปิดซองแล้วหันหลังซองเข้าหาตัว ดึง Code Card ด้านหลังออกก่อนทุกครั้ง เพราะสี Code Card ในยุคเก่าอาจบอกระดับความหายากล่วงหน้าได้
                         </p>
                     </div>
                     <div class="card-ripit p-5 space-y-2 border-l-4 border-l-slate-900">
-                        <h3 class="font-extrabold text-slate-900 flex items-center">
+                        <h3 class="font-extrabold text-slate-900 flex items-center text-sm sm:text-base">
                             <i data-lucide="layers" class="w-4 h-4 text-slate-900 mr-1.5"></i>
                             ยุค Scarlet & Violet (1 ใบ)
                         </h3>
-                        <p class="text-slate-500 leading-relaxed">
+                        <p class="text-slate-500 leading-relaxed text-xs sm:text-sm">
                             ตั้งแต่ปี 2023 การ์ด Energy ถูกย้ายไปอยู่ใบสุดท้าย การสับย้ายการ์ด 1 ใบจากหลังมาหน้าจะช่วยนำ Energy มาไว้ใบแรก และเก็บ Hit ไว้ท้ายสุดพอดี
                         </p>
                     </div>
                     <div class="card-ripit p-5 space-y-2 border-l-4 border-l-slate-400">
-                        <h3 class="font-extrabold text-slate-900 flex items-center">
+                        <h3 class="font-extrabold text-slate-900 flex items-center text-sm sm:text-base">
                             <i data-lucide="shield-alert" class="w-4 h-4 text-slate-400 mr-1.5"></i>
                             ข้อยกเว้นบางประเภท
                         </h3>
-                        <p class="text-slate-500 leading-relaxed">
+                        <p class="text-slate-500 leading-relaxed text-xs sm:text-sm">
                             เซ็ต e-Reader (เช่น Aquapolis) ใช้การสับ 2 ใบ ส่วนเซ็ตพิเศษบางประเภทหรือ Japanese Booster Packs จะมีจำนวนการ์ดต่อซองแตกต่างกัน
                         </p>
                     </div>
@@ -325,7 +323,7 @@
             { type: "Textured Foil (SAR/UR)", appearance: "ฟอยล์นูนเป็นลายเส้น เต็มภาพทั้งใบ", startEra: "ยุค Scarlet & Violet เป็นต้นมา" }
         ];
 
-        // Card Trick Data (Populated directly from Pokemon Card Trick.xlsx)
+        // Card Trick Data
         const trickData = [
             { series: "Wizards of the Coast", year: "1999–2003", count: "3 ใบ", examples: "Base Set, Jungle, Fossil" },
             { series: "e-Reader Era (ข้อยกเว้น)", year: "2002–2003", count: "2 ใบ", examples: "Expedition, Aquapolis" },
@@ -392,8 +390,8 @@
             tbody.innerHTML = filtered.map(p => `
                 <tr class="hover:bg-slate-50 transition-colors">
                     <td class="py-4 px-5 font-bold text-slate-900 whitespace-nowrap">${p.name}</td>
-                    <td class="py-4 px-5 text-slate-600 min-w-[260px]">${p.contents}</td>
-                    <td class="py-4 px-5 text-slate-500 font-normal min-w-[260px]">${p.target}</td>
+                    <td class="py-4 px-5 text-slate-600 min-w-[260px] text-xs sm:text-sm">${p.contents}</td>
+                    <td class="py-4 px-5 text-slate-500 font-normal min-w-[260px] text-xs sm:text-sm">${p.target}</td>
                 </tr>
             `).join('');
         }
@@ -408,11 +406,11 @@
 
             tbody.innerHTML = items.map(s => `
                 <tr class="hover:bg-slate-50 transition-colors">
-                    <td class="py-4 px-5 font-mono text-xs font-bold text-slate-400 whitespace-nowrap">${s.date}</td>
+                    <td class="py-4 px-5 text-slate-600 text-xs sm:text-sm font-medium whitespace-nowrap">${s.date}</td>
                     <td class="py-4 px-5 font-bold text-slate-900 whitespace-nowrap">${s.set}</td>
                     <td class="py-4 px-5 font-extrabold brand-red whitespace-nowrap">${s.chase}</td>
                     <td class="py-4 px-5 font-bold text-slate-900 whitespace-nowrap">${s.value}</td>
-                    <td class="py-4 px-5 text-xs text-slate-500 min-w-[220px]">${s.note}</td>
+                    <td class="py-4 px-5 text-xs sm:text-sm text-slate-500 min-w-[220px]">${s.note}</td>
                 </tr>
             `).join('');
         }
@@ -425,7 +423,7 @@
                         <h3 class="font-extrabold text-slate-900">${f.type}</h3>
                         <span class="text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">${f.startEra}</span>
                     </div>
-                    <p class="text-xs font-normal text-slate-600 leading-relaxed">${f.appearance}</p>
+                    <p class="text-xs sm:text-sm font-normal text-slate-600 leading-relaxed">${f.appearance}</p>
                 </div>
             `).join('');
         }
@@ -437,9 +435,9 @@
             tbody.innerHTML = filtered.map(t => `
                 <tr class="hover:bg-slate-50 transition-colors">
                     <td class="py-4 px-5 font-bold text-slate-900 whitespace-nowrap">${t.series}</td>
-                    <td class="py-4 px-5 text-slate-500 font-mono text-xs whitespace-nowrap">${t.year}</td>
+                    <td class="py-4 px-5 text-slate-600 text-xs sm:text-sm font-medium whitespace-nowrap">${t.year}</td>
                     <td class="py-4 px-5 font-extrabold brand-red whitespace-nowrap">${t.count}</td>
-                    <td class="py-4 px-5 text-slate-600 text-xs min-w-[280px]">${t.examples}</td>
+                    <td class="py-4 px-5 text-slate-600 text-xs sm:text-sm min-w-[280px]">${t.examples}</td>
                 </tr>
             `).join('');
         }
@@ -517,7 +515,7 @@
                 html = `
                     <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">ประเภทสินค้า</span>
                     <h2 class="text-xl font-extrabold text-slate-900 mt-1">${item.name}</h2>
-                    <div class="space-y-3 mt-4 text-xs font-medium text-slate-700">
+                    <div class="space-y-3 mt-4 text-xs sm:text-sm font-medium text-slate-700">
                         <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
                             <span class="font-bold text-slate-900 block mb-1">จุดเด่น:</span>
                             ${item.contents}
@@ -533,7 +531,7 @@
                     <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Set Overview</span>
                     <h2 class="text-xl font-extrabold text-slate-900 mt-1">${item.set}</h2>
                     <p class="text-xs font-bold text-slate-400">Released: ${item.date}</p>
-                    <div class="space-y-3 mt-4 text-xs font-medium text-slate-700">
+                    <div class="space-y-3 mt-4 text-xs sm:text-sm font-medium text-slate-700">
                         <div class="bg-red-50 border border-red-100 p-4 rounded-2xl text-red-900">
                             <span class="font-bold block mb-1">Top Chase Card</span>
                             ${item.chase}
@@ -552,7 +550,7 @@
                 html = `
                     <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Card Finish</span>
                     <h2 class="text-xl font-extrabold text-slate-900 mt-1">${item.type}</h2>
-                    <div class="space-y-3 mt-4 text-xs font-medium text-slate-700">
+                    <div class="space-y-3 mt-4 text-xs sm:text-sm font-medium text-slate-700">
                         <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
                             <span class="font-bold text-slate-900 block mb-1">ลักษณะเมื่อเอียงดู</span>
                             ${item.appearance}
@@ -568,7 +566,7 @@
                     <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Pack Opening Trick</span>
                     <h2 class="text-xl font-extrabold text-slate-900 mt-1">${item.series}</h2>
                     <p class="text-xs font-bold text-slate-400">ช่วงปี: ${item.year}</p>
-                    <div class="space-y-3 mt-4 text-xs font-medium text-slate-700">
+                    <div class="space-y-3 mt-4 text-xs sm:text-sm font-medium text-slate-700">
                         <div class="bg-red-50 border border-red-100 p-4 rounded-2xl text-red-900 flex justify-between items-center">
                             <span class="font-bold block">จำนวนการ์ดที่ต้องสับ:</span>
                             <span class="font-extrabold text-base">${item.count}</span>

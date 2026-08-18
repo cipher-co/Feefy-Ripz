@@ -70,7 +70,7 @@
                     Option A: Tab View
                 </button>
                 <button id="btnOptionB" onclick="switchUIMode('optionB')" class="px-4 py-2 rounded-full transition-all bg-slate-100 text-slate-600 hover:bg-slate-200">
-                    Option B: Feefy Card Grid
+                    Option B: Card Grid
                 </button>
             </div>
         </div>
@@ -90,13 +90,17 @@
         <div id="layoutOptionA" class="space-y-6">
             <div class="flex space-x-2 border-b border-slate-200 text-sm font-bold overflow-x-auto touch-scroll custom-scrollbar pb-0.5">
                 <button onclick="switchTab('products')" id="tab-products" class="tab-btn pb-3 px-4 border-b-2 border-red-600 text-red-600 whitespace-nowrap">
-                    Product Lineup
+                    Products
                 </button>
                 <button onclick="switchTab('sets')" id="tab-sets" class="tab-btn pb-3 px-4 border-b-2 border-transparent text-slate-400 hover:text-slate-700 whitespace-nowrap">
-                    Sets & Chase Cards
+                    Sets & Chase
                 </button>
                 <button onclick="switchTab('foils')" id="tab-foils" class="tab-btn pb-3 px-4 border-b-2 border-transparent text-slate-400 hover:text-slate-700 whitespace-nowrap">
                     Foil Types
+                </button>
+                <!-- New Tab: Card Trick -->
+                <button onclick="switchTab('tricks')" id="tab-tricks" class="tab-btn pb-3 px-4 border-b-2 border-transparent text-slate-400 hover:text-slate-700 whitespace-nowrap">
+                    Card Trick
                 </button>
             </div>
 
@@ -107,9 +111,9 @@
                         <table class="w-full text-left text-xs sm:text-sm text-slate-600 min-w-[700px]">
                             <thead class="bg-slate-900 text-white text-xs uppercase font-extrabold tracking-wider">
                                 <tr>
-                                    <th class="py-4 px-5 whitespace-nowrap">Product Name</th>
-                                    <th class="py-4 px-5 whitespace-nowrap">เนื้อหาภายใน (Inside Contents)</th>
-                                    <th class="py-4 px-5 whitespace-nowrap">เหมาะกับใคร (Best Target)</th>
+                                    <th class="py-4 px-5 whitespace-nowrap">ประเภทสินค้า</th>
+                                    <th class="py-4 px-5 whitespace-nowrap">จุดเด่น</th>
+                                    <th class="py-4 px-5 whitespace-nowrap">เหมาะกับใคร</th>
                                 </tr>
                             </thead>
                             <tbody id="productTableBody" class="divide-y divide-slate-100 font-medium">
@@ -156,6 +160,71 @@
                     <!-- JS Populated -->
                 </div>
             </div>
+
+            <!-- Tab 4: Card Trick (NEW) -->
+            <div id="content-tricks" class="tab-content hidden space-y-6">
+                <!-- Info Banner -->
+                <div class="bg-slate-900 text-white p-6 rounded-3xl shadow-sm space-y-2">
+                    <div class="flex items-center space-x-2 text-red-500 font-extrabold text-xs uppercase tracking-wider">
+                        <i data-lucide="sparkles" class="w-4 h-4"></i>
+                        <span>Pack Opening Guide</span>
+                    </div>
+                    <h2 class="text-xl font-extrabold">Pokémon Card Pack Trick Guide</h2>
+                    <p class="text-xs text-slate-300 leading-relaxed max-w-3xl">
+                        "Card Trick" คือเทคนิคการสับย้ายการ์ดจากด้านหลังซองมาไว้ด้านหน้า เพื่อซ่อนการ์ดหายาก (Rare / Secret Rare / Holo) ไว้เปิดลุ้นเป็นใบสุดท้ายเพื่อความตื่นเต้น!
+                    </p>
+                </div>
+
+                <!-- Table -->
+                <div class="card-ripit border-0 overflow-hidden">
+                    <div class="overflow-x-auto touch-scroll custom-scrollbar">
+                        <table class="w-full text-left text-xs sm:text-sm text-slate-600 min-w-[700px]">
+                            <thead class="bg-slate-900 text-white text-xs uppercase font-extrabold tracking-wider">
+                                <tr>
+                                    <th class="py-4 px-5 whitespace-nowrap">ยุค (Series)</th>
+                                    <th class="py-4 px-5 whitespace-nowrap">ช่วงปีที่ออก</th>
+                                    <th class="py-4 px-5 whitespace-nowrap">จำนวนการ์ดที่ต้องสับ</th>
+                                    <th class="py-4 px-5 whitespace-nowrap">ตัวอย่าง Set</th>
+                                </tr>
+                            </thead>
+                            <tbody id="trickTableBody" class="divide-y divide-slate-100 font-medium">
+                                <!-- JS Populated -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Pro Tips Box -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                    <div class="card-ripit p-5 space-y-2 border-l-4 border-l-red-500">
+                        <h3 class="font-extrabold text-slate-900 flex items-center">
+                            <i data-lucide="info" class="w-4 h-4 text-red-500 mr-1.5"></i>
+                            ถอด Code Card ก่อนเสมอ
+                        </h3>
+                        <p class="text-slate-500 leading-relaxed">
+                            เปิดซองแล้วหันหลังซองเข้าหาตัว ดึง Code Card ด้านหลังออกก่อนทุกครั้ง เพราะสี Code Card ในยุคเก่าอาจบอกระดับความหายากล่วงหน้าได้
+                        </p>
+                    </div>
+                    <div class="card-ripit p-5 space-y-2 border-l-4 border-l-slate-900">
+                        <h3 class="font-extrabold text-slate-900 flex items-center">
+                            <i data-lucide="layers" class="w-4 h-4 text-slate-900 mr-1.5"></i>
+                            ยุค Scarlet & Violet (1 ใบ)
+                        </h3>
+                        <p class="text-slate-500 leading-relaxed">
+                            ตั้งแต่ปี 2023 การ์ด Energy ถูกย้ายไปอยู่ใบสุดท้าย การสับย้ายการ์ด 1 ใบจากหลังมาหน้าจะช่วยนำ Energy มาไว้ใบแรก และเก็บ Hit ไว้ท้ายสุดพอดี
+                        </p>
+                    </div>
+                    <div class="card-ripit p-5 space-y-2 border-l-4 border-l-slate-400">
+                        <h3 class="font-extrabold text-slate-900 flex items-center">
+                            <i data-lucide="shield-alert" class="w-4 h-4 text-slate-400 mr-1.5"></i>
+                            ข้อยกเว้นบางประเภท
+                        </h3>
+                        <p class="text-slate-500 leading-relaxed">
+                            เซ็ต e-Reader (เช่น Aquapolis) ใช้การสับ 2 ใบ ส่วนเซ็ตพิเศษบางประเภทหรือ Japanese Booster Packs จะมีจำนวนการ์ดต่อซองแตกต่างกัน
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- OPTION B: Card Grid -->
@@ -165,6 +234,7 @@
                 <button onclick="filterGrid('product')" class="grid-filter-btn px-4 py-2 rounded-full bg-white text-slate-600 border border-slate-200 hover:bg-slate-50">Products</button>
                 <button onclick="filterGrid('set')" class="grid-filter-btn px-4 py-2 rounded-full bg-white text-slate-600 border border-slate-200 hover:bg-slate-50">Sets & Chases</button>
                 <button onclick="filterGrid('foil')" class="grid-filter-btn px-4 py-2 rounded-full bg-white text-slate-600 border border-slate-200 hover:bg-slate-50">Foil Types</button>
+                <button onclick="filterGrid('trick')" class="grid-filter-btn px-4 py-2 rounded-full bg-white text-slate-600 border border-slate-200 hover:bg-slate-50">Card Trick</button>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="quietLuxuryGrid">
@@ -176,7 +246,7 @@
 
     <!-- Modal for Details -->
     <div id="detailModal" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4 relative border border-slate-100">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4 relative border border-slate-100 max-h-[90vh] overflow-y-auto custom-scrollbar">
             <button onclick="closeModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600">
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
@@ -191,81 +261,62 @@
 
     <!-- JavaScript Data & Logic -->
     <script>
-        // Products Data (Thai Translation Mapping from Excel Sheet)
+        // Products Data
         const productsData = [
             { 
-                name: "Booster Pack", 
-                contents: "10 ใบ + พลังงานพื้นฐาน 1 ใบ (บางเซ็ตพิเศษเป็น 5 ใบฟอยล์ + พลังงานฟอยล์)", 
-                target: "หน่วยพื้นฐานที่สุดของทุกผลิตภัณฑ์" 
+                name: "Booster Pack (ซองสุ่มเดี่ยว)", 
+                contents: "Version ENG มี 10 ใบ / Version JP มี 5 ใบ", 
+                target: "คนที่ต้องการเปิดลุ้นการ์ดใหม่ๆ ทีละนิด" 
             },
             { 
-                name: "Booster Bundle", 
-                contents: "ซองบูสเตอร์ 6 ซองรวมกัน", 
-                target: "อยากได้มากกว่า 1 ซองแต่ไม่ถึงระดับกล่อง" 
+                name: "Booster Box (กล่องใหญ่ 36 ซอง)", 
+                contents: "Version ENG มี 36 ซอง / Version JP มี 30 ซอง", 
+                target: "นักสะสมที่ต้องการการ์ดจำนวนมากในคราวเดียว หรือนักลงทุน เป็นตัวเลือกที่คุ้มค่าต่อราคาต่อซองมากที่สุด เหมาะสำหรับคนนักสะสมที่ต้องการเก็บสะสมการ์ดให้ครบชุด (Set) หรือการ์ด Rare เพราะโอกาสเจอการ์ดหายากมีสูงกว่าเมื่อเทียบกับการซื้อซองแยก" 
             },
             { 
-                name: "Booster Display Box", 
-                contents: "ซองบูสเตอร์ 36 ซอง", 
-                target: "ราคาต่อซองดีที่สุด เหมาะเปิดเยอะหรือลงทุนทั้งกล่องแบบไม่แกะ" 
+                name: "Booster Bundle (กล่องเล็ก 6 ซอง)", 
+                contents: "กล่องเล็กที่บรรจุ Booster Pack ประมาณ 6 ซอง (ไม่มีของแถม)", 
+                target: "คนที่อยากเปิดซองปริมาณปานกลาง ระหว่างการซื้อซองแยกกับ Booster Box โดยไม่ต้องการอุปกรณ์เสริม เหมาะสำหรับคนที่อยากเปิดลุ้นการ์ด แต่ไม่อยากลงทุนสูงถึงขั้นซื้อยกกล่องใหญ่ และไม่มีอุปกรณ์เสริมมาให้เกะกะ" 
             },
             { 
                 name: "Elite Trainer Box (ETB)", 
-                contents: "ซอง 8-9 ซอง + โปรโมฟอยล์ 1 ใบ + sleeves 65 ใบ + พลังงาน 40-45 ใบ + ลูกเต๋า/เหรียญ + กล่องเก็บ", 
-                target: "อยากได้อุปกรณ์เสริมและกล่องเก็บสวยงาม" 
+                contents: "บรรจุซองสุ่ม (Booster Pack) 8-9 ซอง + อุปกรณ์เล่นครบเซ็ต (ซองใส่การ์ด, ลูกเต๋า, ตัวนับสถานะ, ซองใส่การ์ด, กล่องเก็บ) และมีเวอร์ชันพิเศษ Pokémon Center ETB ที่ขายผ่านเว็บทางการเท่านั้น", 
+                target: "เปรียบเสมือน \"ชุดเริ่มต้นแบบ Premiuem\" มักมี Theme ตามการ์ดชุดนั้นๆ ภายในมีอุปกรณ์ที่จำเป็นสำหรับการเล่นจริง เช่น ลูกเต๋าแดเมจ (Damage Counters) และซองใส่การ์ด (Sleeves) ที่มีลวดลายสวยงาม เหมาะสำหรับซื้อเป็นของขวัญหรือใช้เก็บสะสม" 
             },
             { 
-                name: "Pokémon Center ETB", 
-                contents: "เหมือน ETB ปกติแต่ซองเพิ่มขึ้น 2 ซอง พร้อมโปรโมที่มีตราประทับพิเศษ", 
-                target: "นักสะสมที่ตามรุ่นพิเศษเฉพาะช่องทาง" 
+                name: "Starter/Battle Deck", 
+                contents: "เด็คพร้อมเล่นที่มีการ์ดจัดไว้ให้แล้ว 60 ใบ ตามกฎกติกาการแข่งขัน พร้อมอุปกรณ์การเล่นเบื้องต้น (เช่น ตัวนับแดเมจ, เพลย์แมทกระดาษ)", 
+                target: "มือใหม่ที่ต้องการ Deck ที่เล่นได้ทันทีโดยไม่ต้องจัดเอง เพราะคุณจะได้ชุดการ์ดที่ \"เล่นได้จริง\" และสมดุลมาให้เลยพร้อมคู่มือสอนเล่น ไม่ต้องเสียเวลามาจัด Deck เอง" 
             },
             { 
-                name: "Collection / Ex Box", 
-                contents: "ซอง 4 ซอง + โปรโม 1 ใบ + การ์ดขนาดใหญ่พิเศษ (oversize card)", 
-                target: "เก็บตัวละครเฉพาะตัวที่ชอบ / ของขวัญ" 
+                name: "Collection Box / Tin", 
+                contents: "กล่องหรือกระป๋องเหล็กที่มีการ์ดโปรโมพิเศษ (Promo) มาพร้อมการ์ดโปรโมพิเศษและซองสุ่ม 2-4 ซอง", 
+                target: "คนที่ชอบสะสมการ์ดหน้าตาสวยงามและอยากได้ของแถมจำกัด" 
             },
             { 
-                name: "Blister (Tripack/Duo)", 
-                contents: "ซอง 2-3 ซอง + โปรโมหรือ pin เล็ก", 
-                target: "มือใหม่งบน้อย วางขายตามชั้นแคชเชียร์" 
-            },
-            { 
-                name: "Poster / Tech Sticker Collection", 
-                contents: "ซอง 3 ซอง + โปรโม + โปสเตอร์สองหน้าหรือสติกเกอร์", 
-                target: "เน้นของสะสมเสริมมากกว่าปริมาณการ์ด" 
-            },
-            { 
-                name: "Ultra Premium Collection (UPC)", 
-                contents: "โปรโมพิเศษ + pin เคลือบเงา + เหรียญโลหะ + ซองจำนวนมาก", 
-                target: "นักลงทุน/นักสะสมสายพรีเมียม งบสูง" 
-            },
-            { 
-                name: "Collector Chest (Suitcase)", 
-                contents: "กล่องทรงกระเป๋าเดินทาง + ซองไม่กี่ซอง + ของเล่นเสริม", 
-                target: "กลุ่มเด็กและผู้เริ่มต้น" 
-            },
-            { 
-                name: "Build & Battle Box (Prerelease)", 
-                contents: "เด็ค 40 ใบพร้อมเล่น + โปรโมฟอยล์ 1 ใน 4 แบบ", 
-                target: "อยากลองเล่นทันทีไม่ต้องสร้างเด็คเอง" 
+                name: "Ultra-Premium Collection (UPC)", 
+                contents: "สินค้าพรีเมียมระดับสูงสุดของซีรีส์ มักมีการ์ดโลหะพิเศษ, แผ่นเพลย์แมท, ลูกเต๋าพรีเมียม และซองสุ่มจำนวนมาก เหมาะกับการสะสมระดับ Hi-End เช่น กล่องฉลอง 25 ปี หรือ กล่อง 151 UPC", 
+                target: "Hardcore Collectors (นักสะสมตัวยงสายคอมพลีท) / Investors & Long-term Collectors (นักลงทุนเก็งกำไรระยะยาว) / Gift Buyers & Big Fans / ผู้ที่มีงบประมาณสูง" 
             }
         ];
 
-        // Sets & Chase Cards Data (Thai Translation Mapping from Excel Sheet)
+        // Sets & Chase Cards Data
         const setsData = [
-            { date: "พ.ค. 2002", set: "Legendary Collection", chase: "Charizard reprint (Reverse Holo)", value: "ต้องเช็คราคาสด (เซ็ตเก่ามาก)", note: "เซ็ตแรกที่มี Reverse Holo ทั้งเซ็ต" },
-            { date: "พ.ค. 2015", set: "Roaring Skies", chase: "Mega Rayquaza-EX Full Art", value: "ราคาปานกลาง", note: "เปิดตัว Ancient Trait" },
-            { date: "ส.ค. 2015", set: "Ancient Origins", chase: "M Rayquaza EX Shiny FA #98/98", value: "~$1,069 (ขึ้น 2,070% จากวันวางขาย)", note: "Out of print ราคาขึ้นต่อเนื่อง" },
-            { date: "พ.ย. 2016", set: "XY Evolutions", chase: "Charizard reprint / Mega Charizard EX", value: "ราคาเข้าถึงง่าย", note: "เซ็ตฉลอง 20 ปี Pokémon TCG" },
-            { date: "ก.พ. 2019", set: "Sun & Moon: Team Up", chase: "Latias & Latios-GX Alt Art #170", value: "~$3,215", note: "เปิดตัวกลไก TAG TEAM-GX" },
-            { date: "พ.ย. 2019", set: "Cosmic Eclipse", chase: "Tag Team / Secret Rare หลากหลาย", value: "ราคากลาง", note: "เซ็ตปิดท้ายยุค Sun & Moon 271 ใบ" },
-            { date: "ส.ค. 2021", set: "Evolving Skies", chase: "Umbreon VMAX Alt Art 'Moonbreon' #215", value: "~$2,244", note: "Chase card ที่แพงสุดของยุค Sword & Shield" },
-            { date: "พ.ย. 2021", set: "Fusion Strike", chase: "Espeon VMAX Alt Art #270", value: "~$260-300 (PSA 9)", note: "คู่เทียบของ Evolving Skies" },
-            { date: "ก.ย. 2022", set: "Lost Origin", chase: "Giratina V Alt Art", value: "ผันผวนสูง", note: "เคยเป็นอันดับ 2 รองจาก Moonbreon" },
-            { date: "ก.ย. 2023", set: "151", chase: "Charizard ex SIR #199", value: "~$415 (มี.ค. 2026)", note: "ธีม Kanto 151 ตัวแรก ราคาไต่ขึ้นต่อเนื่อง" },
-            { date: "ม.ค. 2024", set: "Paldean Fates", chase: "Mew ex SIR 'Bubble Mew' #232", value: "~$350-450", note: "เซ็ต Shiny Vault ล้วน ไม่มี non-shiny" },
-            { date: "ม.ค. 2026", set: "Ascended Heroes", chase: "Mega Gengar ex #269/217", value: "~$60.95 (ก.ค. 2026)", note: "เปิดตัว rarity ใหม่ Mega Attack Rare" }
+            { date: "May 2002", set: "Legendary Collection", chase: "Charizard reprint (Reverse Holo)", value: "ต้องเช็คราคาสด (เซ็ตเก่ามาก)", note: "เซ็ตแรกที่มี Reverse Holo ทั้งเซ็ต" },
+            { date: "May 2015", set: "Roaring Skies", chase: "Mega Rayquaza-EX Full Art", value: "ราคาปานกลาง", note: "เปิดตัว Ancient Trait" },
+            { date: "Aug 2015", set: "Ancient Origins", chase: "M Rayquaza EX Shiny FA #98/98", value: "~$1,069 (ขึ้น 2,070% จากวันวางขาย)", note: "Out of print ราคาขึ้นต่อเนื่อง" },
+            { date: "Nov 2016", set: "XY Evolutions", chase: "Charizard reprint / Mega Charizard EX", value: "ราคาเข้าถึงง่าย", note: "เซ็ตฉลอง 20 ปี Pokémon TCG" },
+            { date: "Feb 2019", set: "Sun & Moon: Team Up", chase: "Latias & Latios-GX Alt Art #170", value: "~$3,215", note: "เปิดตัวกลไก TAG TEAM-GX" },
+            { date: "Nov 2019", set: "Cosmic Eclipse", chase: "Tag Team / Secret Rare หลากหลาย", value: "ราคากลาง", note: "เซ็ตปิดท้ายยุค Sun & Moon 271 ใบ" },
+            { date: "Aug 2021", set: "Evolving Skies", chase: "Umbreon VMAX Alt Art 'Moonbreon' #215", value: "~$2,244", note: "Chase card ที่แพงสุดของยุค Sword & Shield" },
+            { date: "Nov 2021", set: "Fusion Strike", chase: "Espeon VMAX Alt Art #270", value: "~$260-300 (PSA 9)", note: "คู่เทียบของ Evolving Skies" },
+            { date: "Sep 2022", set: "Lost Origin", chase: "Giratina V Alt Art", value: "ผันผวนสูง", note: "เคยเป็นอันดับ 2 รองจาก Moonbreon" },
+            { date: "Sep 2023", set: "151", chase: "Charizard ex SIR #199", value: "~$415 (Mar 2026)", note: "ธีม Kanto 151 ตัวแรก ราคาไต่ขึ้นต่อเนื่อง" },
+            { date: "Jan 2024", set: "Paldean Fates", chase: "Mew ex SIR 'Bubble Mew' #232", value: "~$350-450", note: "เซ็ต Shiny Vault ล้วน ไม่มี non-shiny" },
+            { date: "Jan 2026", set: "Ascended Heroes", chase: "Mega Gengar ex #269/217", value: "~$60.95 (Jul 2026)", note: "เปิดตัว rarity ใหม่ Mega Attack Rare" }
         ];
 
+        // Foil Types Data
         const foilData = [
             { type: "Non-Holo", appearance: "ด้านทั้งใบ ไม่มันวาวเลย", startEra: "ตั้งแต่เริ่มมี TCG (1996)" },
             { type: "Holo (Holofoil)", appearance: "มันวาวเฉพาะตัวภาพวาด Pokémon ส่วนขอบ/ตัวอักษรด้าน", startEra: "Base Set ปี 1999" },
@@ -274,10 +325,26 @@
             { type: "Textured Foil (SAR/UR)", appearance: "ฟอยล์นูนเป็นลายเส้น เต็มภาพทั้งใบ", startEra: "ยุค Scarlet & Violet เป็นต้นมา" }
         ];
 
+        // Card Trick Data (Populated directly from Pokemon Card Trick.xlsx)
+        const trickData = [
+            { series: "Wizards of the Coast", year: "1999–2003", count: "3 ใบ", examples: "Base Set, Jungle, Fossil" },
+            { series: "e-Reader Era (ข้อยกเว้น)", year: "2002–2003", count: "2 ใบ", examples: "Expedition, Aquapolis" },
+            { series: "Diamond & Pearl", year: "2007–2009", count: "3 ใบ", examples: "Diamond & Pearl, Mysterious Treasures" },
+            { series: "Platinum", year: "2009", count: "3 ใบ", examples: "Platinum, Rising Rivals" },
+            { series: "HeartGold & SoulSilver (HGSS)", year: "2010–2011", count: "3 ใบ", examples: "HGSS Base, Triumphant" },
+            { series: "Black & White", year: "2011–2013", count: "3 ใบ", examples: "Black & White, Boundaries Crossed" },
+            { series: "XY", year: "2013–2016", count: "3 ใบ", examples: "XY Base, Evolutions" },
+            { series: "Sun & Moon", year: "2017–2019", count: "4 ใบ", examples: "Sun & Moon Base, Team Up" },
+            { series: "Sword & Shield", year: "2020–ปลาย 2022", count: "4 ใบ", examples: "Rebel Clash, Vivid Voltage, Chilling Reign, Evolving Skies, Fusion Strike, Astral Radiance, Lost Origin, Silver Tempest, Crown Zenith" },
+            { series: "Scarlet & Violet", year: "ปลาย 2022–ปลาย 2025", count: "1 ใบ", examples: "SV Base Set, Paldea Evolved, Obsidian Flames, Paradox Rift, Paldean Fates, Temporal Forces, Twilight Masquerade, Surging Sparks, Prismatic Evolutions, Journey Together" },
+            { series: "Mega Evolution", year: "ปลาย 2025–ปัจจุบัน (2026)", count: "1 ใบ (คาดการณ์ตามโครงสร้างซอง)", examples: "Mega Evolution Base Set, Phantasmal Flames, Ascended Heroes, Perfect Order, Chaos Rising" }
+        ];
+
         document.addEventListener('DOMContentLoaded', () => {
             renderProducts();
             renderSets();
             renderFoils();
+            renderTricks();
             renderQuietLuxuryGrid();
             lucide.createIcons();
 
@@ -326,7 +393,7 @@
                 <tr class="hover:bg-slate-50 transition-colors">
                     <td class="py-4 px-5 font-bold text-slate-900 whitespace-nowrap">${p.name}</td>
                     <td class="py-4 px-5 text-slate-600 min-w-[260px]">${p.contents}</td>
-                    <td class="py-4 px-5 text-slate-500 font-normal min-w-[220px]">${p.target}</td>
+                    <td class="py-4 px-5 text-slate-500 font-normal min-w-[260px]">${p.target}</td>
                 </tr>
             `).join('');
         }
@@ -350,10 +417,6 @@
             `).join('');
         }
 
-        function filterAndRenderSets() {
-            renderSets(document.getElementById('globalSearch').value.toLowerCase(), document.getElementById('setSort').value);
-        }
-
         function renderFoils() {
             const grid = document.getElementById('foilGrid');
             grid.innerHTML = foilData.map(f => `
@@ -365,6 +428,24 @@
                     <p class="text-xs font-normal text-slate-600 leading-relaxed">${f.appearance}</p>
                 </div>
             `).join('');
+        }
+
+        function renderTricks(filter = '') {
+            const tbody = document.getElementById('trickTableBody');
+            const filtered = trickData.filter(t => t.series.toLowerCase().includes(filter) || t.examples.toLowerCase().includes(filter));
+            
+            tbody.innerHTML = filtered.map(t => `
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="py-4 px-5 font-bold text-slate-900 whitespace-nowrap">${t.series}</td>
+                    <td class="py-4 px-5 text-slate-500 font-mono text-xs whitespace-nowrap">${t.year}</td>
+                    <td class="py-4 px-5 font-extrabold brand-red whitespace-nowrap">${t.count}</td>
+                    <td class="py-4 px-5 text-slate-600 text-xs min-w-[280px]">${t.examples}</td>
+                </tr>
+            `).join('');
+        }
+
+        function filterAndRenderSets() {
+            renderSets(document.getElementById('globalSearch').value.toLowerCase(), document.getElementById('setSort').value);
         }
 
         function renderQuietLuxuryGrid(filterType = 'all', search = '') {
@@ -379,6 +460,9 @@
             }
             if (filterType === 'all' || filterType === 'foil') {
                 foilData.forEach(f => cards.push({ category: 'Foil Types', title: f.type, sub: f.appearance, details: f, type: 'foil' }));
+            }
+            if (filterType === 'all' || filterType === 'trick') {
+                trickData.forEach(t => cards.push({ category: 'Card Trick', title: t.series, sub: `สับ ${t.count} (${t.year})`, details: t, type: 'trick' }));
             }
 
             if (search) {
@@ -412,6 +496,7 @@
         function filterGlobal(query) {
             renderProducts(query);
             renderSets(query);
+            renderTricks(query);
             renderQuietLuxuryGrid('all', query);
         }
 
@@ -423,17 +508,18 @@
             if (type === 'product') item = productsData[idx];
             if (type === 'set') item = setsData[idx];
             if (type === 'foil') item = foilData[idx];
+            if (type === 'trick') item = trickData[idx];
 
             if (!item) return;
 
             let html = '';
             if (type === 'product') {
                 html = `
-                    <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Product Specs</span>
+                    <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">ประเภทสินค้า</span>
                     <h2 class="text-xl font-extrabold text-slate-900 mt-1">${item.name}</h2>
                     <div class="space-y-3 mt-4 text-xs font-medium text-slate-700">
                         <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                            <span class="font-bold text-slate-900 block mb-1">เนื้อหาภายใน:</span>
+                            <span class="font-bold text-slate-900 block mb-1">จุดเด่น:</span>
                             ${item.contents}
                         </div>
                         <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
@@ -446,7 +532,7 @@
                 html = `
                     <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Set Overview</span>
                     <h2 class="text-xl font-extrabold text-slate-900 mt-1">${item.set}</h2>
-                    <p class="text-xs font-bold text-slate-400">ปีที่ออก: ${item.date}</p>
+                    <p class="text-xs font-bold text-slate-400">Released: ${item.date}</p>
                     <div class="space-y-3 mt-4 text-xs font-medium text-slate-700">
                         <div class="bg-red-50 border border-red-100 p-4 rounded-2xl text-red-900">
                             <span class="font-bold block mb-1">Top Chase Card</span>
@@ -474,6 +560,22 @@
                         <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
                             <span class="font-bold text-slate-900 block mb-1">เริ่มมีตั้งแต่</span>
                             ${item.startEra}
+                        </div>
+                    </div>
+                `;
+            } else if (type === 'trick') {
+                html = `
+                    <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Pack Opening Trick</span>
+                    <h2 class="text-xl font-extrabold text-slate-900 mt-1">${item.series}</h2>
+                    <p class="text-xs font-bold text-slate-400">ช่วงปี: ${item.year}</p>
+                    <div class="space-y-3 mt-4 text-xs font-medium text-slate-700">
+                        <div class="bg-red-50 border border-red-100 p-4 rounded-2xl text-red-900 flex justify-between items-center">
+                            <span class="font-bold block">จำนวนการ์ดที่ต้องสับ:</span>
+                            <span class="font-extrabold text-base">${item.count}</span>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                            <span class="font-bold text-slate-900 block mb-1">ตัวอย่าง Set ในยุคนี้</span>
+                            ${item.examples}
                         </div>
                     </div>
                 `;
